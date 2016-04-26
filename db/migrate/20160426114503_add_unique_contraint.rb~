@@ -1,0 +1,4 @@
+class AddUniqueContraint < ActiveRecord::Migration
+  def change
+  end
+end
