@@ -9,10 +9,12 @@ class NoteTest < ActiveSupport::TestCase
   end
 
   test "create note" do
-    n = Note.new()
-    assert n.class() == Note
+    n = Note.new
+    assert n.class == Note
     assert n.unique_note_id == ""
     assert n.text == ""
+
+    print Note.new.gen_note_id
   end
   
   # test "create note" do

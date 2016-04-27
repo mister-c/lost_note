@@ -5,9 +5,9 @@ class Note < ActiveRecord::Base
 
   adj_file  = open("lib/assets/simple_adj.txt")
   noun_file = open("lib/assets/simple_noun.txt")
-  Note.adj_list = adj_file.read
+  Note.adj_list = adj_file.read.split("\n")
   adj_file.close
-  Note.noun_list = noun_file.read
+  Note.noun_list = noun_file.read.split("\n")
   noun_file.close
 
   Note.rng = Random.new
