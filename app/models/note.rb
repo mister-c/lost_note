@@ -1,10 +1,10 @@
 class Note < ActiveRecord::Base
-  class_attribute adj_list
-  class_attribute noun_list
-  class_attribute rng
+  class_attribute :adj_list
+  class_attribute :noun_list
+  class_attribute :rng
 
-  adj_file  = open("lib/asset/simple_adj.txt")
-  noun_file = open("lib/asset/simple_noun.txt")
+  adj_file  = open("lib/assets/simple_adj.txt")
+  noun_file = open("lib/assets/simple_noun.txt")
   Note.adj_list = adj_file.read
   adj_file.close
   Note.noun_list = noun_file.read

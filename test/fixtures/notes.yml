@@ -2,8 +2,8 @@
 
 one:
   text: 
-  unique_note_id: MyString
+  unique_note_id: MyString1
 
 two:
   text: 
-  unique_note_id: MyString
+  unique_note_id: MyString2
