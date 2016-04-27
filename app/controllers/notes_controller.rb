@@ -13,15 +13,14 @@ class NotesController < ApplicationController
         id_string = params[:unique_note_id]
       else
         id_string = @note.gen_note_id
-      end
+        while(Note.find_by_unique_note_id(id_string) != nil) do
+          id_string = @note.gen_note_id
+        end
 
-      while(Note.find_by_unique_note_id(id_string) != nil) do
-        id_string = @note.gen_note_id
+        # Redirect back to this same method
+        # (so the id string shows up in the url)
+        redirect_to "/" + id_string
       end
-
-      # Redirect back to this same method
-      # (so the id string shows up in the url)
-      redirect_to "/" + id_string
     end
 
     #Assign id string
