@@ -26,4 +26,11 @@ class NotesController < ApplicationController
     #Assign id string
     @note.unique_note_id = id_string
   end
+
+  def create
+    note = Note.new
+    @note.unique_note_id = params.require(:unique_note_id)
+    @note.save
+    render :text => "NoteCreated"
+  end
 end

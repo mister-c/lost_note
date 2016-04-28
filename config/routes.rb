@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'notes#index'
 
-  get ':unique_note_id' => 'notes#index'
+  get  ':unique_note_id' => 'notes#index'
+
+  post 'create' => 'notes#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
