@@ -33,7 +33,7 @@ class NotesControllerTest < ActionController::TestCase
     assert n.text == "Drifting away like a feather in air"
 
     sync_arr = [[1234, "9*)(*_#)(@84-0941-3"]]
-    post :sync, {:unique_note_id => "Groovy Giraffe", :sync_json => sync_arr.to_json}
+    post :sync, {:unique_note_id => "GroovyGiraffe", :sync_json => sync_arr.to_json}
     
     # n = assigns :note
   end

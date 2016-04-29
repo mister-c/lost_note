@@ -36,14 +36,19 @@ class NotesController < ApplicationController
 
   def sync
     @note = Note.find_by_unique_note_id(sync_params[:unique_note_id])
+    if(@note == nil) then
+      render :text => "NotFound"
+      return
+    end
+    
     if(!sync_params[:sync_json]) then
       render :text => "NullSync"
     else
       arr = JSON.parse(sync_params[:sync_json])
       arr.each do |t|
-        if(t[1] =~ /^+/) then
+        if(t[1] =~ /^\+/) then
           append(t[0], t[1][1..-1])
-        elsif(t[1] =~ /^-/) then
+        elsif(t[1] =~ /^\-/) then
           remove(t[0], t[1][1..-1].to_i)
         end
       end
