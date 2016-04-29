@@ -35,20 +35,21 @@ class NotesController < ApplicationController
   end
 
   def sync
-    @note = find_by_unique_note_id(sync_params[:unique_note_id])
+    @note = Note.find_by_unique_note_id(sync_params[:unique_note_id])
     if(!sync_params[:sync_json]) then
       render :text => "NullSync"
-    end
-    arr = JSON(sync_params[:sync_json])
-    arr.each do |t|
-      if(t[1] =~ /^+/) then
-        append(t[0], t[1][1..-1])
-      elsif(t[1] =~ /^-/) then
-        append(t[0], t[1][1..-1].to_i)
+    else
+      arr = JSON.parse(sync_params[:sync_json])
+      arr.each do |t|
+        if(t[1] =~ /^+/) then
+          append(t[0], t[1][1..-1])
+        elsif(t[1] =~ /^-/) then
+          remove(t[0], t[1][1..-1].to_i)
+        end
       end
+      @note.save
+      render :text => "Synced"
     end
-    @note.save
-    render :text => "Synced"
   end
 
   private
@@ -58,10 +59,10 @@ class NotesController < ApplicationController
   end
 
   def append(start_index, str)
-    @note.insert(start_index, str)
+    @note.text.insert(start_index, str)
   end
 
   def remove(start_index, num_del)
-    @note.slice!(start_index, num_del)
+    @note.text.slice!(start_index, num_del)
   end
 end

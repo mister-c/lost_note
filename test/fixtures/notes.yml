@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  text: 
-  unique_note_id: MyString1
+  text: Drifting away like
+  unique_note_id: GroovyGiraffe
 
 two:
-  text: 
-  unique_note_id: MyString2
+  text: I am sitting in the
+  unique_note_id: DeadDischord
