@@ -37,4 +37,20 @@ class NotesControllerTest < ActionController::TestCase
     
     # n = assigns :note
   end
+
+  test "remove from a note" do
+    sync_arr = [[19, "-11"]]
+    post :sync, {:unique_note_id => "DeadDischord", :sync_json => sync_arr.to_json}
+    assert_response :success
+    assert_select "html", "Synced"
+
+    n = assigns :note
+    assert n.text == "I am sitting in the"
+
+    sync_arr = [[19, "+ corner."]]
+    post :sync, {:unique_note_id => "DeadDischord", :sync_json => sync_arr.to_json}
+
+    n = assigns :note
+    assert n.text == "I am sitting in the corner."
+  end
 end
