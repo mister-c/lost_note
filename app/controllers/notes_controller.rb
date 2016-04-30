@@ -28,7 +28,7 @@ class NotesController < ApplicationController
   end
 
   def create
-    note = Note.new
+    @note = Note.new
     @note.unique_note_id = params.require(:unique_note_id)
     @note.save
     render :text => "NoteCreated"
