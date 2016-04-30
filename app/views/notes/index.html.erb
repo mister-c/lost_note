@@ -1,16 +1,19 @@
-<span id="menu_bar">
-  <div>
-    URL for this note: <div id="note_full_url"></div> ||
+<div id="menu_bar_1">
+  <span>URL for this note: <span id="note_full_url"></span>
   </div>
-  <div>
-    Auto Save Status: <div id="save_status">Saved</div> ||
-  </div>
-  <div>
-    Note will be deleted in: <div id="delete_time"> 10 minutes</div> ||
-  </div>
-  <div>
-    Note can be accessed <div> 1 </div> more times before deletion
-  </div>
-</span>
-<br>
+</div>
+<div id="menu_bar_2">
+  <span>
+    Auto Save Status: <span id="save_status">Saved</span> ||
+  </span>
+  <span>
+    Note will be deleted in: <span id="delete_time"> 10 minutes</span> ||
+  </span>
+  <span>
+    Note can be accessed <span> 1 </span> more times before deletion
+  </span>
+</div>
+
+<div id="height_wrapper">
 <textarea id="note_box"><%= @note.text %></textarea>
+</div>

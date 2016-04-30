@@ -2,14 +2,41 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-div{
-	display: inherit;
+html{
+	height: 100%;
+	overflow-y: hidden;
+	overflow-x: hidden;
 }
 
-span#menu_bar{
-	display: inline;
+
+body{
+	margin: 0;
+	height: 100%;
 }
 
-div#save_status{
-	display: inline;
+div#menu_bar_1{
+	margin-top: 5px;
+	margin-left: 0.3%;
+	height: 15px;
+	margin-bottom: 5px;
+}
+
+div#menu_bar_2{
+	margin-top: 5px;
+	margin-left: 0.3%;
+	margin-bottom: 5px;
+	height: 15px;
+}
+
+div#height_wrapper{
+	position: absolute;
+	width: 100%;
+	top: 50px;
+	bottom:0;
+}
+
+textarea#note_box{
+	width: 100%;
+	height: 100%;
+	margin: auto;
 }
