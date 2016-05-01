@@ -9,7 +9,8 @@
     Status: <span id="save_status">Saved</span>
   </div>
   <div id="mb2_s2">
-    DeleteTime: <span id="delete_time"> <%= @note.time_til_death %> min</span>
+    DeleteTime: <%= select "post", "death_time_choice", options_for_select({"30 min" => "30", "1 hr" => "60", "1 day" => "1440", "1 week" => "10080", "Forever" => "-1"}, @note.time_til_death ) %>
+    <!-- DeleteTime: <span id="delete_time"> <%= @note.time_til_death %> min</span> -->
   </div>
   <div id="mb2_s3">
     RemainingReads:<span id="reads_remaining"> 1 </span>
