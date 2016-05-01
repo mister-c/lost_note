@@ -49,12 +49,10 @@ class NotesController < ApplicationController
   ##################################################
   def destroy
     @note = Note.find_by_unique_note_id(params.require(:unique_note_id))
-    if(@note == nil) then
-      render :text => "NotFound"
-    else
+    if(@note != nil) then
       @note.delete
-      render :text => "Deleted"
     end
+    redirect_to root_path
   end
 
   # Receives a JSON array of appends and removals...

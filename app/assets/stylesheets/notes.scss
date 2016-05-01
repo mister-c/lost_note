@@ -37,27 +37,62 @@ div#menu_bar_2{
 	height: 15px;
 }
 
-span#mb2_s1{
-	width: 10%;
+div#mb2_s1{
+	width: 8%;
 	display: table-cell;
+	font-weight: bold;
 }
 
-span#mb2_s2{
-	width: 10%;
+span#save_status{
+	font-weight: initial;
+}
+
+div#mb2_s2{
+	width: 8%;
+	text-align: center;
+	display: table-cell;
+	font-weight: bold;
+}
+
+span#delete_time{
+	font-weight: initial;
+}
+
+div#mb2_s3{
+	width: 8%;
+	text-align: right;
+	display: table-cell;
+	font-weight: bold;
+}
+
+span#reads_remaining{
+	font-weight: initial;
+}
+
+div#mb2_s4{
+	width: 5%;
 	text-align: center;
 	display: table-cell;
 }
 
-span#mb2_s3{
-	width: 10%;
-	text-align: right;
-	display: table-cell;
+button#trash_button{
+	background-color: rgb(19, 104, 104);
+	padding-top: 1.5%;
+	border-style: solid;
+	border-color: #57f59c;
+	margin: auto;
+	width: 20%;
+	cursor: pointer;
+}
+
+div#mb2_s4 img{
+	width: 40%;
 }
 
 div#height_wrapper{
 	position: absolute;
 	width: 100%;
-	top: 65px;
+	top: 77px;
 	bottom:0;
 }
 

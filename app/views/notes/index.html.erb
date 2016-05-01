@@ -5,15 +5,23 @@
 </div>
 
 <div id="menu_bar_2">
-  <span id="mb2_s1">
+  <div id="mb2_s1">
     Status: <span id="save_status">Saved</span>
-  </span>
-  <span id="mb2_s2">
-    Delete Time: <span id="delete_time"> <%= @note.time_til_death %> min</span>
-  </span>
-  <span id="mb2_s3">
-    Remaining Reads:<span id="reads_remaining"> 1 </span>
-  </span>
+  </div>
+  <div id="mb2_s2">
+    DeleteTime: <span id="delete_time"> <%= @note.time_til_death %> min</span>
+  </div>
+  <div id="mb2_s3">
+    RemainingReads:<span id="reads_remaining"> 1 </span>
+  </div>
+  <div id="mb2_s4">
+    <%= form_tag("destroy", method: "post") do %>
+      <input type="hidden" name="unique_note_id" value="<%= @note.unique_note_id %>">
+      <button id="trash_button" type="submit">
+      <%= image_tag "trash.svg" %>
+    </button>
+    <% end %>
+  </div>
 </div>
 
 <div id="height_wrapper">

@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   root 'notes#index'
 
-  get  ':unique_note_id' => 'notes#index'
+  get ':unique_note_id' => 'notes#index'
 
   post 'create' => 'notes#create'
   post 'sync'   => 'notes#sync'
 
-  delete ':unique_note_id' => 'notes#destroy'
+  post 'destroy' => 'notes#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
