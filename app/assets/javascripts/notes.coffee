@@ -209,6 +209,9 @@ deselect_listener = ->
 document.addEventListener("DOMContentLoaded", (event) ->
         # console.log("Document loaded!!")
 
+        current_url = window.location.href
+        document.getElementById("note_full_url").innerHTML = current_url
+
         n_box = document.getElementById("note_box")
         # console.log "is newtype?..." + n_box.getAttribute("data-newtype")
 

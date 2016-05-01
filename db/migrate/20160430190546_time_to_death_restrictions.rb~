@@ -1,0 +1,4 @@
+class TimeToDeathRestrictions < ActiveRecord::Migration
+  def change
+  end
+end

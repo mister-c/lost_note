@@ -1,18 +1,18 @@
 <%= javascript_tag "const AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
 
 <div id="menu_bar_1">
-  <span>URL for this note: <span id="note_full_url"></span>
+  <span>NoteURL:<span id="note_full_url"></span>
 </div>
 
 <div id="menu_bar_2">
-  <span>
-    Auto Save Status: <span id="save_status">Saved</span> ||
+  <span id="mb2_s1">
+    Status: <span id="save_status">Saved</span>
   </span>
-  <span>
-    Note will be deleted in: <span id="delete_time"> 10 minutes</span> ||
+  <span id="mb2_s2">
+    Delete Time: <span id="delete_time"> <%= @note.time_til_death %> min</span>
   </span>
-  <span>
-    Note can be accessed <span id="reads_remaining"> 1 </span> more times before deletion
+  <span id="mb2_s3">
+    Remaining Reads:<span id="reads_remaining"> 1 </span>
   </span>
 </div>
 

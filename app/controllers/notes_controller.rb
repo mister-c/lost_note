@@ -21,10 +21,9 @@ class NotesController < ApplicationController
         # (so the id string shows up in the url)
         redirect_to "/" + id_string
       end
+      #Assign id string
+      @note.unique_note_id = id_string
     end
-
-    #Assign id string
-    @note.unique_note_id = id_string
   end
 
   def create

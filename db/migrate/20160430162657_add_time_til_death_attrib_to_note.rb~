@@ -1,0 +1,5 @@
+class AddTimeTilDeathAttribToNote < ActiveRecord::Migration
+  def change
+    add_column :notes, :TimeTilDeath, :text
+  end
+end
