@@ -51,6 +51,20 @@ class NotesControllerTest < ActionController::TestCase
     n = assigns :note
     assert n.text == "I am sitting in the corner."
   end
+
+  test "delete a note" do
+    #Make sure the note exists
+    assert Note.find_by_unique_note_id("GroovyGiraffe") != nil
+    
+    #Destroy the note
+    delete :destroy, unique_note_id: "GroovyGiraffe"
+
+    #Make sure we get the correct return status
+    assert_select "html", "Deleted"
+
+    #Make sure the note is gone
+    assert Note.find_by_unique_note_id("GroovyGiraffe") == nil
+  end
 end
 
 

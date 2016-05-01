@@ -3,7 +3,9 @@
 one:
   text: Drifting away like
   unique_note_id: GroovyGiraffe
+  time_til_death: 30
 
 two:
   text: I am sitting in the front room
   unique_note_id: DeadDischord
+  time_til_death: 30
