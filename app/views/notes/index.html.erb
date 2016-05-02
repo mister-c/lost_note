@@ -8,12 +8,16 @@
   <div id="mb2_s1">
     Status: <span id="save_status">Saved</span>
   </div>
+  <!-- Dropdown 1 -->
   <div id="mb2_s2">
-    DeleteTime: <%= select "post", "death_time_choice", options_for_select({"30 min" => "30", "1 hr" => "60", "1 day" => "1440", "1 week" => "10080", "Forever" => "-1"}, @note.time_til_death ) %>
-    <!-- DeleteTime: <span id="delete_time"> <%= @note.time_til_death %> min</span> -->
+    DeleteTime: <%= select "dd1", "death_time_choice", options_for_select({ "30 min" => "30", "1 hr" => "60",
+    "1 day" => "1440", "1 week" => "10080", "Forever" => "-1"}, @note.time_til_death ), {}, :onchange => 'console.log("dd1 changed")'
+    %>
   </div>
   <div id="mb2_s3">
-    RemainingReads:<span id="reads_remaining"> 1 </span>
+    RemainingReads: <%= select "dd2", "max_reads_choice", options_for_select({ "1" => "1", "3" => "3", "10" => "10", "Infinite" => "-1"}, "1"), {}, :onchange => ('console.log("dd2 changed")')
+    %>
+    <!-- <span id="reads_til_death"> 1 </span> -->
   </div>
   <div id="mb2_s4">
     <%= form_tag("destroy", method: "post") do %>
