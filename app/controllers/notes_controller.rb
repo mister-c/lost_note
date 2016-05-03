@@ -50,7 +50,7 @@ class NotesController < ApplicationController
   ##################################################
   def update
     @note = Note.find(update_params[:unique_note_id])
-    
+    #check params to see which field is being updated
   end
 
   # Delete the note with the given note_id

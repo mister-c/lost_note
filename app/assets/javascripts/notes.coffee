@@ -15,6 +15,18 @@
 # Functions....
 ##################################################
 
+delete_time_change = ->
+        n = document.getElementById("note_box")
+        is_newtype = n.getAttribute("data-newtype")
+        if(is_newtype):
+                create_note
+                while(document.getElementById("note_box").getAttribute("data-newtype") != false) then
+                console.log("method complete")
+
+        # Make ajax request to change note delete time
+        # TODO: write controller action that allows changing of the delete time
+                
+
 # This event fires 3 seconds after the user last input some text
 # 
 # This function will lock itself so that if the additional
@@ -60,6 +72,27 @@ queue_sync_event = ->
                 #Empty the queue 
                 n.queue = []
 
+create_note = (unique_note_id) ->
+        x = new XMLHttpRequest()
+        x.onreadystatechange = ->
+                # Once the POST request completes... add all the listeners so we
+                # can start synchronizing the note
+                if x.readyState == 4 and x.status == 200
+                        # console.log("ajax complete")
+                        n = document.getElementById("note_box")
+                        n.onselect = select_listener
+                        n.oninput = update_listener
+                        n.onkeydown = deselect_listener
+                        n.onclick = deselect_listener
+                        n.setAttribute("data-newtype", true)
+                        update_listener()
+
+        # OK lets submit the create event as a POST request. Awww yeah.
+        x.open("POST", "create", true)
+        x.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        x.send("unique_note_id=" + unique_note_id + "&authenticity_token=" + encodeURIComponent(AUTH_TOKEN))
+        
+
 # This event fires the first time a user inputs text
 # into a new document.
 #
@@ -74,24 +107,7 @@ creation_listener = (n) ->
         #Get the unique_note_id from the pathname
         unique_note_id = window.location.pathname.substr(1)
         # console.log("Unique id string is..." + unique_note_id)
-        
-        x = new XMLHttpRequest()
-        x.onreadystatechange = ->
-                # Once the POST request completes... add all the listeners so we
-                # can start synchronizing the note
-                if x.readyState == 4 and x.status == 200
-                        # console.log("ajax complete")
-                        n = document.getElementById("note_box")
-                        n.onselect = select_listener
-                        n.oninput = update_listener
-                        n.onkeydown = deselect_listener
-                        n.onclick = deselect_listener
-                        update_listener()
-
-        # OK lets submit the create event as a POST request. Awww yeah.
-        x.open("POST", "create", true)
-        x.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-        x.send("unique_note_id=" + unique_note_id + "&authenticity_token=" + encodeURIComponent(AUTH_TOKEN))
+        create_note(unique_note_id)
 
 
 # This is where the bulk of the code happens. This is also where the lag happens...
