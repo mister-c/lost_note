@@ -60,7 +60,7 @@ class NotesControllerTest < ActionController::TestCase
     delete :destroy, unique_note_id: "GroovyGiraffe"
 
     #Make sure we get the correct return status
-    assert_select "html", "Deleted"
+    assert_response 302
 
     #Make sure the note is gone
     assert Note.find_by_unique_note_id("GroovyGiraffe") == nil
@@ -69,7 +69,7 @@ class NotesControllerTest < ActionController::TestCase
   test "update a note" do
     post :update, {:unique_note_id => "DeadDischord", :time_til_death => "60"}
     assert_response :success
-    asssert_select "html", "NoteUpdated"
+    assert_select "html", "NoteUpdated"
   end
 end
 

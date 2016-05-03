@@ -49,11 +49,11 @@ class NotesController < ApplicationController
   # if you want to update the text, use the sync action
   ##################################################
   def update
-    @note = Note.find(update_params[:unique_note_id])
-    if(update_params(:time_til_death)) then
-      @note.time_til_death = update_params(:time_til_death).to_i
-    else if(update_params(:max_num_read)) then
-      @note.max_num_read = update_params(:max_num_read).to_i
+    @note = Note.find_by_unique_note_id(update_params[:unique_note_id])
+    if(update_params[:time_til_death]) then
+      @note.time_til_death = update_params[:time_til_death].to_i
+    elsif(update_params[:max_num_read]) then
+      @note.max_num_read = update_params[:max_num_read].to_i
     end
     @note.save
     render :text => "NoteUpdated"
@@ -108,7 +108,8 @@ class NotesController < ApplicationController
   end
 
   def update_params
-    params.require(:unique_note_id, :time_til_death)
+    params.require(:unique_note_id)
+    params.permit(:time_til_death)
     params
   end
 
