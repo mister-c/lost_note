@@ -65,6 +65,12 @@ class NotesControllerTest < ActionController::TestCase
     #Make sure the note is gone
     assert Note.find_by_unique_note_id("GroovyGiraffe") == nil
   end
+
+  test "update a note" do
+    post :update, {:unique_note_id => "DeadDischord", :time_til_death => "60"}
+    assert_response :success
+    asssert_select "html", "NoteUpdated"
+  end
 end
 
 

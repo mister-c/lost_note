@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160430190546) do
+ActiveRecord::Schema.define(version: 20160503101214) do
 
   create_table "notes", force: :cascade do |t|
     t.text     "text",           default: ""
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160430190546) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "time_til_death", default: 30
+    t.integer  "max_num_read"
   end
 
   add_index "notes", ["unique_note_id"], name: "index_notes_on_unique_note_id", unique: true
