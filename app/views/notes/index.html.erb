@@ -23,8 +23,10 @@
     <%= form_tag("destroy", method: "post") do %>
       <input type="hidden" name="unique_note_id" value="<%= @note.unique_note_id %>">
       <button id="trash_button" type="submit">
-      <%= image_tag "trash.svg" %>
-    </button>
+	
+	<%= image_tag "trash.svg" %>
+	
+      </button>
     <% end %>
   </div>
 </div>
@@ -32,3 +34,5 @@
 <div id="height_wrapper">
   <textarea id="note_box" data-newtype="<%= is_new_note(@note) %>"><%= @note.text %></textarea>
 </div>
+
+
