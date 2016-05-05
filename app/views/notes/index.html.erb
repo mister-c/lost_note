@@ -11,7 +11,7 @@
   <!-- Dropdown 1 -->
   <div id="mb2_s2">
     DeleteTime: <%= select "dd1", "death_time_choice", options_for_select({ "30 min" => "30", "1 hr" => "60",
-    "1 day" => "1440", "1 week" => "10080", "Forever" => "-1"}, @note.time_til_death ), {}, :onchange => 'console.log("dd1 changed")'
+    "1 day" => "1440", "1 week" => "10080", "Forever" => "-1"}, @note.time_til_death )
     %>
   </div>
   <div id="mb2_s3">

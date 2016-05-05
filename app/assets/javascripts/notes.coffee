@@ -18,10 +18,9 @@
 delete_time_change = ->
         n = document.getElementById("note_box")
         is_newtype = n.getAttribute("data-newtype")
-        if(is_newtype):
-                create_note
-                while(document.getElementById("note_box").getAttribute("data-newtype") != false) then
-                console.log("method complete")
+        if(is_newtype is "true")
+                unique_note_id = window.location.pathname.substr(1)
+                create_note(unique_note_id)
 
         # Make ajax request to change note delete time
         # TODO: write controller action that allows changing of the delete time
@@ -84,7 +83,7 @@ create_note = (unique_note_id) ->
                         n.oninput = update_listener
                         n.onkeydown = deselect_listener
                         n.onclick = deselect_listener
-                        n.setAttribute("data-newtype", true)
+                        n.setAttribute("data-newtype", "false")
                         update_listener()
 
         # OK lets submit the create event as a POST request. Awww yeah.
@@ -224,6 +223,10 @@ deselect_listener = ->
 # This is where the code starts...
 document.addEventListener("DOMContentLoaded", (event) ->
         # console.log("Document loaded!!")
+
+        # Create the listener for any changes in the
+        # death time drop down
+        document.getElementById("dd1_death_time_choice").onchange = delete_time_change
 
         current_url = window.location.href
         document.getElementById("note_full_url").innerHTML = current_url
