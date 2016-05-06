@@ -79,7 +79,7 @@ class NotesControllerTest < ActionController::TestCase
     post :sync, {:unique_note_id => n.unique_note_id, :sync_json => sync_arr.to_json}
     assert_response :success
 
-    get n.unique_note_id
+    get :index, {:unique_note_id => n.unique_note_id}
     
     n = assigns(:note)
     assert_not_nil(n)
@@ -92,5 +92,3 @@ class NotesControllerTest < ActionController::TestCase
     assert_select "html", "NoteUpdated"
   end
 end
-
-
