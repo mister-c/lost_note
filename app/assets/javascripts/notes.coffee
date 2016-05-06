@@ -17,14 +17,23 @@
 
 delete_time_change = ->
         n = document.getElementById("note_box")
+        dtc = document.getElementById("dd1_death_time_choice")
+
+        # If this is a new note... create the note before setting
+        # the attribute
         is_newtype = n.getAttribute("data-newtype")
+        unique_note_id = window.location.pathname.substr(1)
         if(is_newtype is "true")
-                unique_note_id = window.location.pathname.substr(1)
                 create_note(unique_note_id)
 
-        # Make ajax request to change note delete time
-        # TODO: write controller action that allows changing of the delete time
-                
+        # Make AJAX request to change note delete time
+        x = new XMLHttpRequest()
+        x.onreadystatechange = ->
+                if x.readystate == 4 and x.status == 200
+                        console.log("DeleteTime updated...")
+        x.open("POST", "update", true)
+        x.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        x.send("unique_note_id=" + unique_note_id + "&time_til_death=" + dtc.value + "&authenticity_token=" + encodeURIComponent(AUTH_TOKEN))
 
 # This event fires 3 seconds after the user last input some text
 # 

@@ -52,6 +52,10 @@ class NotesController < ApplicationController
   ##################################################
   def update
     @note = Note.find_by_unique_note_id(update_params[:unique_note_id])
+    if(@note == nil) then
+      render :text => "NotFound"
+      return
+    end
     if(@note.is_locked) then
       render :text => "NoteLocked"
       return
