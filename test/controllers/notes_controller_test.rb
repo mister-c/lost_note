@@ -65,6 +65,12 @@ class NotesControllerTest < ActionController::TestCase
     #Make sure the note is gone
     assert Note.find_by_unique_note_id("GroovyGiraffe") == nil
   end
+  
+  test "update a note" do
+    post :update, {:unique_note_id => "DeadDischord", :time_til_death => "60"}
+    assert_response :success
+    assert_select "html", "NoteUpdated"
+  end
 
   test "test locks" do
     get :index
@@ -84,11 +90,11 @@ class NotesControllerTest < ActionController::TestCase
     n = assigns(:note)
     assert_not_nil(n)
     assert n.is_locked == true
-  end
 
-  test "update a note" do
-    post :update, {:unique_note_id => "DeadDischord", :time_til_death => "60"}
-    assert_response :success
-    assert_select "html", "NoteUpdated"
+    assert n.time_til_death == 30
+    post :update, {:unique_note_id => n.unique_note_id, :time_til_death => "60"}
+    assert_select "html", "NoteLocked"
+    n = assigns(:note)
+    assert n.time_til_death == 30
   end
 end

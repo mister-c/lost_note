@@ -52,6 +52,10 @@ class NotesController < ApplicationController
   ##################################################
   def update
     @note = Note.find_by_unique_note_id(update_params[:unique_note_id])
+    if(@note.is_locked) then
+      render :text => "NoteLocked"
+      return
+    end
     if(update_params[:time_til_death]) then
       @note.time_til_death = update_params[:time_til_death].to_i
     elsif(update_params[:max_num_read]) then
