@@ -10,6 +10,8 @@ class NotesController < ApplicationController
       # If the selected note id is taken then load the existing note object with that id
       # and display the view so we can edit the note
       @note = Note.find_by_unique_note_id(params[:unique_note_id])
+      @note.is_locked = true
+      @note.save
     else
       # Create a new note with a blank id (that will fill in)
       # This note is NOT inserted into the database yet

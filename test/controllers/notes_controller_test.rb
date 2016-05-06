@@ -66,6 +66,26 @@ class NotesControllerTest < ActionController::TestCase
     assert Note.find_by_unique_note_id("GroovyGiraffe") == nil
   end
 
+  test "test locks" do
+    get :index
+    assert_response 302
+    n = assigns(:note)
+    assert_not_nil(n)
+    assert n.is_locked == false
+
+    post :create, {:unique_note_id => n.unique_note_id}
+    
+    sync_arr = [[0, "+drifting away like a feather in air..."]]
+    post :sync, {:unique_note_id => n.unique_note_id, :sync_json => sync_arr.to_json}
+    assert_response :success
+
+    get n.unique_note_id
+    
+    n = assigns(:note)
+    assert_not_nil(n)
+    assert n.is_locked == true
+  end
+
   test "update a note" do
     post :update, {:unique_note_id => "DeadDischord", :time_til_death => "60"}
     assert_response :success

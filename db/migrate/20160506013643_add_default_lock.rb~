@@ -1,0 +1,4 @@
+class AddDefaultLock < ActiveRecord::Migration
+  def change
+  end
+end
