@@ -11,6 +11,14 @@ class NotesController < ApplicationController
       # and display the view so we can edit the note
       @note = Note.find_by_unique_note_id(params[:unique_note_id])
       @note.is_locked = true
+      if(@note.max_num_read != -1) then
+        @note.max_num_read = @note.max_num_read - 1
+        logger.debug "max_num_read: " + @note.max_num_read.to_s
+        if(@note.max_num_read <= 0) then
+          @note.delete
+          return
+        end
+      end
       @note.save
     else
       # Create a new note with a blank id (that will fill in)

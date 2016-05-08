@@ -1,0 +1,4 @@
+class AddDefaultMaxRead < ActiveRecord::Migration
+  def change
+  end
+end

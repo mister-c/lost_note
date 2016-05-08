@@ -37,7 +37,7 @@ delete_time_change = ->
 
 max_num_read_change = ->
         n = document.getElementById("note_box")
-        mrc = document.getElementById("max_reads_choice")
+        mrc = document.getElementById("dd2_max_reads_choice")
 
         # If this is a new note... create the note before setting
         # the attribute
