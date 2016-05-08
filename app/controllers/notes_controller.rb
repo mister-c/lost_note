@@ -97,8 +97,15 @@ class NotesController < ApplicationController
     # of the array either append or remove the given text
     if(!sync_params[:sync_json]) then
       render :text => "NullSync"
+      return
     else
       arr = JSON.parse(sync_params[:sync_json])
+
+      if(arr.length == 1 and arr[0][1] == "+") then
+        render :text => "NullSync"
+        return
+      end
+      
       arr.each do |t|
         if(t[1] =~ /^\+/) then
           append(t[0], t[1][1..-1])

@@ -55,7 +55,7 @@ queue_sync_event = ->
         if n.queue.toString().length > 100 or (Date.now() - n.timer > (1000 * 5) and n.queue.length > 0)
                 # console.log("generating sync event...")
                 x = new XMLHttpRequest()
-                                        
+                
                 # If we're caught up...
                 # wait a little while and check the queue again
                 x.onreadystatechange = ->
@@ -77,7 +77,7 @@ queue_sync_event = ->
                 x.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
                 x.send("unique_note_id=" + unique_note_id + "&sync_json=" + encodeURIComponent(queue_string) +
                    "&authenticity_token=" + encodeURIComponent(AUTH_TOKEN))
-                #Empty the queue 
+                #Empty the queue
                 n.queue = []
 
 create_note = (unique_note_id) ->
@@ -177,7 +177,7 @@ update_listener = ->
                 # console.log("appending..." + n.value.slice(insertion_pos, n.selectionStart))
                 # console.log(n.queue[n.queue.length-1][1])
         else if nvl < n.note_length
-                # Checks conditions for creating a new node and then increments the deletion cound
+                # Checks conditions for creating a new node and then increments the deletion count
                 if n.queue.length < 1 or n.selectionStart != n.cursor_pos - 1 or n.queue[nql-1][1][0] != "-"
                         n.queue.push([n.selectionStart, "-0"])
                         nql = n.queue.length
@@ -250,7 +250,8 @@ document.addEventListener("DOMContentLoaded", (event) ->
         n_box.cursor_pos = -1
         n_box.is_locked  = false
         n_box.select_bound = [0, 0]
-        n_box.note_length  = n_box.value.length
+        # n_box.note_length  = n_box.value.length
+        n_box.note_length  = -1
         # Determine if this is an existing note or a new one
         if n_box.getAttribute("data-newtype") == "true"
                 # console.log("new note bitches")
