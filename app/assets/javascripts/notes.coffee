@@ -35,6 +35,27 @@ delete_time_change = ->
         x.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
         x.send("unique_note_id=" + unique_note_id + "&time_til_death=" + dtc.value + "&authenticity_token=" + encodeURIComponent(AUTH_TOKEN))
 
+max_num_read_change = ->
+        n = document.getElementById("note_box")
+        mrc = document.getElementById("max_reads_choice")
+
+        # If this is a new note... create the note before setting
+        # the attribute
+        is_newtype = n.getAttribute("data-newtype")
+        unique_note_id = window.location.pathname.substr(1)
+        if(is_newtype is "true")
+                create_note(unique_note_id)
+
+        # Make AJAX request to change the maximum number
+        # of reads before the note is deleted
+        x = new XMLHttpRequest()
+        x.onreadystatechange = ->
+                if x.readystate == 4 and x.status == 200
+                        console.log("MaxReads updated")
+        x.open("POST", "update", true)
+        x.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        x.send("unique_note_id=" + unique_note_id + "&max_num_read=" + mrc.value + "&authenticity_token=" + encodeURIComponent(AUTH_TOKEN))
+        
 # This event fires 3 seconds after the user last input some text
 # 
 # This function will lock itself so that if the additional
@@ -128,9 +149,7 @@ creation_listener = (n) ->
 # Last, it sets a timer so 3 seconds from the users last key stroke, a POST request
 # is sent to the server containing the JSON encoded version of the queue
 update_listener = ->
-        # console.log("new input detected! Fuck yeah!")
-
-        # Get elements from the page so we can do stuff
+         # Get elements from the page so we can do stuff
         n = document.getElementById("note_box")
         s = document.getElementById("save_status")
 
@@ -188,9 +207,6 @@ update_listener = ->
                 # console.log(n.queue[n.queue.length-1][1])
                 #The user deleted something
 
-        #Don't re-enble this or this script will lag like a bitch
-        # console.log("queue..." + n.queue.toString())
-
         # Update these attributes for the note box
         n.cursor_pos = n.selectionStart
         n.note_length = nvl
@@ -236,6 +252,7 @@ document.addEventListener("DOMContentLoaded", (event) ->
         # Create the listener for any changes in the
         # death time drop down
         document.getElementById("dd1_death_time_choice").onchange = delete_time_change
+        document.getElementById("dd2_max_reads_choice").onchange = max_num_read_change
 
         current_url = window.location.href
         document.getElementById("note_full_url").innerHTML = current_url
@@ -254,7 +271,6 @@ document.addEventListener("DOMContentLoaded", (event) ->
         n_box.note_length  = -1
         # Determine if this is an existing note or a new one
         if n_box.getAttribute("data-newtype") == "true"
-                # console.log("new note bitches")
                 n_box.oninput = creation_listener
         else
                 #Create listeners for changes to the note
