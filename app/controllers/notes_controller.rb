@@ -10,7 +10,14 @@ class NotesController < ApplicationController
       # If the selected note id is taken then load the existing note object with that id
       # and display the view so we can edit the note
       @note = Note.find_by_unique_note_id(params[:unique_note_id])
+
+      # When the note is loaded for the first time lock all attributes
+      # so the lifetime of the note cannot be extended
       @note.is_locked = true
+
+      # If the remaining reads has dropped below zero
+      # delete the note
+      # If the note has inifinite reads don't delete it
       if(@note.max_num_read != -1) then
         @note.max_num_read = @note.max_num_read - 1
         logger.debug "max_num_read: " + @note.max_num_read.to_s
@@ -19,6 +26,8 @@ class NotesController < ApplicationController
           return
         end
       end
+
+      # Store the changes to the note and we're done
       @note.save
     else
       # Create a new note with a blank id (that will fill in)
@@ -51,6 +60,31 @@ class NotesController < ApplicationController
     @note = Note.new
     @note.unique_note_id = params.require(:unique_note_id)
     @note.save
+
+    # Create a timer thread that waits for notes
+    # expiration time and deletes it
+    thr = Thread.new do
+      # Remember the note creation time
+      n = @note
+      note_creation_time = Time.now
+      
+      while(n != nil) do
+        sleep 5
+        # Reload the note into memory in case the rention time
+        # was changed
+        #
+        # TODO: Add a check for locked status. If the note is locked...
+        # no need to keep checking for changes in retention time
+        n = Note.find_by_unique_note_id(n.unique_note_id)
+
+        # If the retention time is exceeded delete the note
+        if (((Time.now - note_creation_time) / 60).to_i) > n.time_til_death - 29 then
+          logger.debug "DELETAN TEH NOTE"
+          n.delete
+          n = nil
+        end
+      end
+    end
     render :text => "NoteCreated"
   end
 
@@ -134,7 +168,7 @@ class NotesController < ApplicationController
 
   def update_params
     params.require(:unique_note_id)
-    params.permit(:time_til_death)
+    params.permit(:unique_note_id, :time_til_death, :max_num_read, :authenticity_token)
     params
   end
 
