@@ -206,6 +206,8 @@ update_listener = ->
                 n.queue[nql-1][1] = "-" + (parseInt(n.queue[nql-1][1].slice(1)) + n.note_length - nvl).toString()
                 # console.log(n.queue[n.queue.length-1][1])
                 #The user deleted something
+        else
+                return
 
         # Update these attributes for the note box
         n.cursor_pos = n.selectionStart
@@ -268,7 +270,7 @@ document.addEventListener("DOMContentLoaded", (event) ->
         n_box.is_locked  = false
         n_box.select_bound = [0, 0]
         # n_box.note_length  = n_box.value.length
-        n_box.note_length  = -1
+        n_box.note_length  = 0
         # Determine if this is an existing note or a new one
         if n_box.getAttribute("data-newtype") == "true"
                 n_box.oninput = creation_listener
