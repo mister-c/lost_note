@@ -17,8 +17,10 @@ class NotesController < ApplicationController
 
       # If the remaining reads has dropped below zero
       # delete the note
-      # If the note has inifinite reads don't delete it
+      # If the note has infinite reads don't delete it
       if(@note.max_num_read != -1) then
+        logger.debug "Not infinite"
+        
         @note.max_num_read = @note.max_num_read - 1
         logger.debug "max_num_read: " + @note.max_num_read.to_s
         if(@note.max_num_read <= 0) then
@@ -29,6 +31,7 @@ class NotesController < ApplicationController
 
       # Store the changes to the note and we're done
       @note.save
+      logger.debug "note saved!"
     else
       # Create a new note with a blank id (that will fill in)
       # This note is NOT inserted into the database yet

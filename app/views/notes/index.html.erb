@@ -10,13 +10,13 @@
   </div>
   <!-- Dropdown 1 -->
   <div id="mb2_s2">
-    DeleteTime: <%= select "dd1", "death_time_choice", options_for_select({ "30 min" => "30", "1 hr" => "60",
+    DeleteTime: <span id="style_select"><%= select "dd1", "death_time_choice", options_for_select({ "30 min" => "30", "1 hr" => "60",
     "1 day" => "1440", "1 week" => "10080", "Forever" => "-1"}, @note.time_til_death )
-    %>
+    %></span>
   </div>
   <div id="mb2_s3">
-    RemainingReads: <%= select "dd2", "max_reads_choice", options_for_select({ "1" => "1", "3" => "3", "10" => "10", "Infinite" => "-1"}, "1"), {}, :onchange => ('console.log("dd2 changed")')
-    %>
+    RemainingReads: <span id="style_select"><%= select "dd2", "max_reads_choice", options_for_select({ "1" => "1", "3" => "3", "10" => "10", "Infinite" => "-1"}, @note.max_num_read), {}, :onchange => ('console.log("dd2 changed")')
+    %></span>
     <!-- <span id="reads_til_death"> 1 </span> -->
   </div>
   <div id="mb2_s4">
